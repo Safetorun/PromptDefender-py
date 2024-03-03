@@ -1,19 +1,16 @@
 from typing import Optional, List
 from pydantic import BaseModel, validator
-import logging
 
 
-class BasicXmlScanner(BaseModel):
-    xml_tag: Optional[str] = None
-    logger = logging.getLogger(__name__)
+class PromptValidator(BaseModel):
+    length: Optional[int] = None
+    acceptable_values: Optional[List[str]] = None
 
-    def check_for_xml_tag(self, prompt: str) -> bool:
-        self.logger.info(f"Scanning text for tag: {self.xml_tag} in input: {prompt}")
+    def validate_prompt(self, prompt: str) -> bool:
+        if self.length is not None and len(prompt) > self.length:
+            return False
 
-        result = False
-        if self.xml_tag:
-            tag_to_scan_for = f"<{self.xml_tag}>"
-            other_tag_to_scan_for = f"</{self.xml_tag}>"
-            result = tag_to_scan_for in prompt or other_tag_to_scan_for in prompt
+        if self.acceptable_values is not None and prompt not in self.acceptable_values:
+            return False
 
-        return result
+        return True

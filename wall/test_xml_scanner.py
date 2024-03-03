@@ -1,6 +1,7 @@
 import unittest
 from xml_scanner import BasicXmlScanner
 
+
 class TestBasicXmlScanner(unittest.TestCase):
     def setUp(self):
         self.scanner = BasicXmlScanner(xml_tag='tag')
@@ -11,6 +12,7 @@ class TestBasicXmlScanner(unittest.TestCase):
 
         text_to_scan = "No tags here"
         self.assertFalse(self.scanner.check_for_xml_tag(text_to_scan))
+
 
 if __name__ == '__main__':
     unittest.main()

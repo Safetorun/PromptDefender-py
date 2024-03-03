@@ -1,22 +1,26 @@
 import unittest
-from wall.prompt_validator import BasicXmlScanner
+from prompt_validator import PromptValidator
 
 
-class TestBasicXmlScanner(unittest.TestCase):
-    def test_check_for_xml_tag(self):
-        # Test when xml_tag is None and prompt does not contain any XML tags
-        scanner = BasicXmlScanner(xml_tag=None)
-        self.assertFalse(scanner.check_for_xml_tag("No tags here"))
+class TestPromptValidator(unittest.TestCase):
 
-        # Test when xml_tag is None and prompt contains XML tags
-        self.assertFalse(scanner.check_for_xml_tag("<tag>Some content</tag>"))
+    def test_validate_length(self):
+        pv = PromptValidator(length=5)
+        self.assertFalse(pv.validate_prompt("This prompt is longer than acceptable"))
 
-        # Test when xml_tag is not None and prompt does not contain the specified XML tag
-        scanner = BasicXmlScanner(xml_tag='tag')
-        self.assertFalse(scanner.check_for_xml_tag("No tags here"))
+    def test_validate_length_is_ok(self):
+        pv = PromptValidator(length=100)
+        self.assertTrue(pv.validate_prompt("This prompt is longer than acceptable"))
 
-        # Test when xml_tag is not None and prompt contains the specified XML tag
-        self.assertTrue(scanner.check_for_xml_tag("<tag>Some content</tag>"))
+    def test_validate_prompt(self):
+        pv = PromptValidator(length=100, acceptable_values=['hello', 'world'])
+        self.assertTrue(pv.validate_prompt('hello'))
+        self.assertTrue(pv.validate_prompt('world'))
+        self.assertFalse(pv.validate_prompt('invalid'))
+        self.assertFalse(pv.validate_prompt('hell'))
+
+        pv = PromptValidator(length=None, acceptable_values=None)
+        self.assertTrue(pv.validate_prompt('any value'))
 
 
 if __name__ == '__main__':

@@ -1,10 +1,14 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 import logging
 
+
 class BasicXmlScanner(BaseModel):
     xml_tag: Optional[str] = None
-    logger = logging.getLogger(__name__)
+    logger: logging.Logger = Field(default_factory=lambda: logging.getLogger(__name__))
+
+    class Config:
+        arbitrary_types_allowed = True
 
     def check_for_xml_tag(self, prompt: str) -> bool:
         self.logger.info(f"Scanning text for tag: {self.xml_tag} in input: {prompt}")
