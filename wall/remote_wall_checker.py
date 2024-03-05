@@ -31,7 +31,7 @@ class PromptDefenderClient:
 
     def call_remote_wall(self, request: WallRequest) -> WallResponse:
         headers = {"x-api-key": self.api_key, "Content-Type": "application/json"}
-        response = requests.post(self.api_url, headers=headers, data=request.json())
+        response = requests.post(self.api_url, headers=headers, data=request.json(), timeout=60)
         if response.status_code == 200:
             data = response.json()
             return WallResponse(**data)
