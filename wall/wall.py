@@ -35,7 +35,7 @@ class ValidatorExecutor(BaseModel):
 
     def __execute_prompt_validator__(self, prompt: str) -> bool:
         if self.prompt_validator is not None:
-            return self.prompt_validator.vali date_prompt(prompt)
+            return self.prompt_validator.validate_prompt(prompt)
         else:
             return False
 
