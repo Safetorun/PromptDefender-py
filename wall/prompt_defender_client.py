@@ -22,25 +22,20 @@ class WallResponse(BaseModel):
     suspicious_session: Optional[bool] = None
 
 
-class PromptDefenderClient:
+class PromptDefenderClient(BaseModel):
     user_id: Optional[str] = None
     session_id: Optional[str] = None
     allow_pii: Optional[bool] = None
+    api_key: Optional[str] = None
+    api_url: str = "https://prompt.safetorun.com/wall"
 
-    def __init__(self, api_key: Optional[str] = None,
-                 user_id: Optional[str] = None,
-                 session_id: Optional[str] = None,
-                 scan_pii: Optional[bool] = None):
+    def __init__(self, /, **kwargs):
 
-        self.base_url = "https://prompt.safetorun.com/"
-        self.api_url = self.base_url + "wall"
-        self.api_key = api_key if api_key is not None else os.getenv("PROMPT_DEFENDER_API_KEY")
+        super().__init__(**kwargs)
+        self.api_key = kwargs["api_key"] if kwargs["api_key"] is not None else os.getenv("PROMPT_DEFENDER_API_KEY")
         if not self.api_key:
             raise ValueError("API key must be provided via environment variable or parameter "
                              "(Use PROMPT_DEFENDER_API_KEY for environment variable)")
-        self.user_id = user_id
-        self.session_id = session_id
-        self.allow_pii = scan_pii
 
     def call_remote_wall(self, prompt: str) -> WallResponse:
         headers = {"x-api-key": self.api_key, "Content-Type": "application/json"}

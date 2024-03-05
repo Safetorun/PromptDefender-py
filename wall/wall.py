@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 from xml_scanner import BasicXmlScanner
 from prompt_validator import PromptValidator
-from remote_wall_checker import PromptDefenderClient, WallResponse, WallRequest
+from prompt_defender_client import PromptDefenderClient, WallResponse, WallRequest
 
 
 class ValidationResult(BaseModel):
@@ -23,25 +23,36 @@ def should_block_prompt(validation_result: ValidationResult) -> bool:
 
 
 class ValidatorExecutor(BaseModel):
-    xml_scanner: BasicXmlScanner
-    prompt_validator: PromptValidator
+    xml_scanner: Optional[BasicXmlScanner] = None
+    prompt_validator: Optional[PromptValidator] = None
     remote_wall_checker: Optional[PromptDefenderClient] = None
 
-    def execute_xml_scanner(self, prompt: str) -> bool:
-        return self.xml_scanner.check_for_xml_tag(prompt)
+    def __execute_xml_scanner__(self, prompt: str) -> bool:
+        if self.xml_scanner is not None:
+            return self.xml_scanner.check_for_xml_tag(prompt)
+        else:
+            return False
 
-    def execute_prompt_validator(self, prompt: str) -> bool:
-        return self.prompt_validator.validate_prompt(prompt)
+    def __execute_prompt_validator__(self, prompt: str) -> bool:
+        if self.prompt_validator is not None:
+            return self.prompt_validator.vali date_prompt(prompt)
+        else:
+            return False
 
-    def execute_remote_wall_checker(self, prompt: str) -> Optional[WallResponse]:
+    def __execute_remote_wall_checker__(self, prompt: str) -> Optional[WallResponse]:
         if self.remote_wall_checker is not None:
             return self.remote_wall_checker.call_remote_wall(prompt)
         return None
 
-    def execute_validators(self, prompt: str) -> ValidationResult:
-        xml_injection_detected = self.execute_xml_scanner(prompt)
-        prompt_validator_failed = not self.execute_prompt_validator(prompt)
-        remote_wall_response = self.execute_remote_wall_checker(prompt)
+    def validate_prompt(self, prompt: str) -> ValidationResult:
+        """
+        Validate a prompt
+        :param prompt: The prompt to validate
+        :return: validation result
+        """
+        xml_injection_detected = self.__execute_xml_scanner__(prompt)
+        prompt_validator_failed = not self.__execute_prompt_validator__(prompt)
+        remote_wall_response = self.__execute_remote_wall_checker__(prompt)
 
         contains_pii: Optional[bool] = None
         potential_jailbreak: bool = False

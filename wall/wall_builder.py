@@ -3,7 +3,7 @@ from typing import Optional, List
 from wall import ValidatorExecutor
 from prompt_validator import PromptValidator
 from xml_scanner import BasicXmlScanner
-from remote_wall_checker import PromptDefenderClient
+from prompt_defender_client import PromptDefenderClient
 
 
 def create_wall(
