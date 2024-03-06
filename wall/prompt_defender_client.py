@@ -38,7 +38,8 @@ class PromptDefenderClient(BaseModel):
                              "(Use PROMPT_DEFENDER_API_KEY for environment variable)")
 
     def call_remote_wall(self, prompt: str) -> WallResponse:
-        headers = {"x-api-key": self.api_key, "Content-Type": "application/json"}
+        headers = {"x-api-key": self.api_key, "Content-Type": "application/json",
+                   "User-Agent": "PromptDefenderClient-v1.0"}
         request = WallRequest(prompt=prompt, user_id=self.user_id, session_id=self.session_id, scan_pii=self.allow_pii)
         request = request.json(exclude_none=True)
         logging.info(f"Calling /wall endpoint with request: {request}")
