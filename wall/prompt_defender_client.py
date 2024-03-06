@@ -3,7 +3,7 @@ import os
 from typing import Optional
 
 import requests
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel
 
 
 class WallRequest(BaseModel):
@@ -50,15 +50,3 @@ class PromptDefenderClient(BaseModel):
         else:
             raise Exception(
                 f"Failed to call /wall endpoint: {response.status_code}, {response.text}, Request: {request}")
-
-
-# Example usage
-if __name__ == "__main__":
-    try:
-        client = PromptDefenderClient()
-        response = client.call_remote_wall("This is a test prompt.")
-        print(response)
-    except ValueError as e:
-        print(e)
-    except ValidationError as e:
-        print(e.json())

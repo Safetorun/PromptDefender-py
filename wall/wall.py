@@ -1,9 +1,10 @@
 from typing import Optional
+
 from pydantic import BaseModel
 
-from xml_scanner import BasicXmlScanner
+from prompt_defender_client import PromptDefenderClient, WallResponse
 from prompt_validator import PromptValidator
-from prompt_defender_client import PromptDefenderClient, WallResponse, WallRequest
+from xml_scanner import BasicXmlScanner
 
 
 class ValidationResult(BaseModel):
@@ -22,7 +23,7 @@ def should_block_prompt(validation_result: ValidationResult) -> bool:
         validation_result.suspicious_session
 
 
-class ValidatorExecutor(BaseModel):
+class WallExecutor(BaseModel):
     xml_scanner: Optional[BasicXmlScanner] = None
     prompt_validator: Optional[PromptValidator] = None
     remote_wall_checker: Optional[PromptDefenderClient] = None

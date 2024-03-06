@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from wall import ValidatorExecutor
+from wall import WallExecutor
 from prompt_validator import PromptValidator
 from xml_scanner import BasicXmlScanner
 from prompt_defender_client import PromptDefenderClient
@@ -15,7 +15,7 @@ def create_wall(
         session_id: Optional[str] = None,
         max_prompt_length: Optional[int] = None,
         allowed_prompt_values: Optional[List[str]] = None,
-) -> ValidatorExecutor:
+) -> WallExecutor:
     """
     Create a wall with the given configuration
 
@@ -52,7 +52,7 @@ def create_wall(
         raise ValueError(
             "At least one of xml_tag, api_key, user_id, session_id, allow_pii, max_prompt_length, or allowed_prompt_values must be provided")
 
-    return ValidatorExecutor(
+    return WallExecutor(
         xml_scanner=scanner,
         prompt_validator=prompt_validator,
         remote_wall_checker=remote_wall_checker,

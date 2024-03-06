@@ -7,7 +7,14 @@ class PromptValidator(BaseModel):
     acceptable_values: Optional[List[str]] = None
 
     def validate_prompt(self, prompt: str) -> bool:
-        if self.length is not None and len(prompt) > self.max_length:
+        """
+        Validate a prompt
+
+        :param prompt: The prompt to validate
+
+        :return:
+        """
+        if self.max_length is not None and len(prompt) > self.max_length:
             return False
 
         if self.acceptable_values is not None and prompt not in self.acceptable_values:
