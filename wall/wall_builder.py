@@ -36,7 +36,7 @@ def create_wall(
     if xml_tag is not None:
         scanner = BasicXmlScanner(xml_tag=xml_tag)
 
-    if remote_jailbreak_check or user_id is not None or session_id is not None or allow_pii is not None:
+    if remote_jailbreak_check:
         remote_wall_checker = PromptDefenderClient(
             scan_pii=allow_pii,
             api_key=api_key,
