@@ -34,7 +34,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        scripts/tests.sh
+        bash scripts/tests.sh
     - name: Build
       run: |
-          scripts/build.sh
+         bash scripts/build.sh
