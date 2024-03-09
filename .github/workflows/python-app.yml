@@ -40,7 +40,7 @@ jobs:
          bash scripts/build.sh
     - name: Deploy
       env:
-        PYPI_PASSWORD_TEST: ${{ secrets.$PYPI_PASSWORD_TEST }}
+        PYPI_PASSWORD_TEST: ${{ secrets.PYPI_PASSWORD_TEST }}
       run: |
          bash scripts/deploy.sh
     
