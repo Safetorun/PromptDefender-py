@@ -1,6 +1,6 @@
 [project]
 name = "PromptDefender-drawbridge"
-version = "v0.0.2"
+version = "0.0.6"
 authors = [
     { name="Daniel Llewellyn", email="admin@safetorun.com" },
 ]
