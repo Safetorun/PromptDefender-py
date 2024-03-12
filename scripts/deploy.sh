@@ -4,6 +4,8 @@ latest_tag=$(git describe --tags)
 latest_tag=${latest_tag#v}
 
 echo $latest_tag
+echo `pwd`
+echo `ls wall`
 
 sed -i '' -e "s/version = \".*\"/version = \"$latest_tag\"/g" wall/pyproject.toml || exit 1
 sed -i '' -e "s/version = \".*\"/version = \"$latest_tag\"/g" drawbridge/pyproject.toml || exit 1
