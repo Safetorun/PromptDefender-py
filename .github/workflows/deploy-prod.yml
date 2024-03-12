@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-
+    environment: Production
     runs-on: ubuntu-latest
 
     steps:
@@ -35,7 +35,6 @@ jobs:
         run: |
           bash scripts/build.sh
       - name: Deploy
-        environment: Production
         env:
           PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD}}
         run: |
