@@ -34,9 +34,6 @@ jobs:
       - name: Test with pytest
         run: |
           bash scripts/tests.sh
-      - name: Build
-        run: |
-          bash scripts/build.sh
       - name: Deploy
         env:
           PYPI_PASSWORD_TEST: ${{ secrets.PYPI_PASSWORD_TEST }}
