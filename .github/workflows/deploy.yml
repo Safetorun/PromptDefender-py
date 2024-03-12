@@ -38,6 +38,8 @@ jobs:
         run: |
           bash scripts/build.sh
       - name: Deploy
+        environment:
+          name: test-pypi
         env:
           PYPI_PASSWORD_TEST: ${{ secrets.PYPI_PASSWORD_TEST }}
         run: |
