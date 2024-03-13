@@ -1,11 +1,11 @@
 [project]
-name = "PromptDefender-drawbridge"
+name = "prompt-defender"
 version = "0.0.10"
 authors = [
     { name="Daniel Llewellyn", email="admin@safetorun.com" },
 ]
-description = "Prompt Defender - Drawbridge. A package to help you defend against the responses from prompt injection attacks."
-readme = "../README.md"
+description = "Prompt Defender. A package to help you defend against prompt injection attacks."
+readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",

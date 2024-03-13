@@ -2,6 +2,8 @@
 
 ## Installation
 
+```pip install prompt-defender```
+
 ## Wall
 
 Wall is a part of the Prompt Defender project that is responsible for validating prompts. It uses a combination of

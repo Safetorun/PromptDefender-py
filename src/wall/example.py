@@ -1,4 +1,4 @@
-from wall.src.wall import should_block_prompt
+from wall_executor import should_block_prompt
 from wall_builder import create_wall
 
 wall = create_wall(

@@ -1,6 +1,6 @@
 from typing import Optional, List
 
-from wall import WallExecutor
+from wall_executor import WallExecutor
 from prompt_validator import PromptValidator
 from xml_scanner import BasicXmlScanner
 from prompt_defender_client import PromptDefenderClient

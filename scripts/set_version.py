@@ -28,8 +28,7 @@ def replace_version(file_path, new_version):
 
 # Replace version in the files
 try:
-    replace_version('wall/pyproject.toml', latest_tag)
-    replace_version('drawbridge/pyproject.toml', latest_tag)
+    replace_version('pyproject.toml', latest_tag)
 except FileNotFoundError:
     print("File not found. Exiting.")
     os._exit(1)
