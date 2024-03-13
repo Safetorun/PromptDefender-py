@@ -1,5 +1,5 @@
 import unittest
-from xml_scanner import BasicXmlScanner
+from wall.xml_scanner import BasicXmlScanner
 
 
 class TestBasicXmlScanner(unittest.TestCase):

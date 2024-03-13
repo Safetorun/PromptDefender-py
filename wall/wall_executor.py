@@ -2,9 +2,9 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from prompt_defender_client import PromptDefenderClient, WallResponse
-from prompt_validator import PromptValidator
-from xml_scanner import BasicXmlScanner
+from .prompt_defender_client import PromptDefenderClient, WallResponse
+from .prompt_validator import PromptValidator
+from .xml_scanner import BasicXmlScanner
 
 
 class ValidationResult(BaseModel):

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from wall_executor import WallExecutor, ValidationResult
+from wall.wall_executor import WallExecutor, ValidationResult
 
 
 class TestWallExecutor(unittest.TestCase):
