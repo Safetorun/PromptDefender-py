@@ -1,5 +1,7 @@
 # Prompt Defender
 
+Read the documentation at [Prompt Defender - Docs](https://promptshield.readme.io/docs)
+
 ## Installation
 
 ```pip install prompt-defender```
