@@ -1,9 +1,9 @@
 from typing import Optional, List
 
-from wall_executor import WallExecutor
-from prompt_validator import PromptValidator
-from xml_scanner import BasicXmlScanner
-from prompt_defender_client import PromptDefenderClient
+from .wall_executor import WallExecutor
+from .prompt_validator import PromptValidator
+from .xml_scanner import BasicXmlScanner
+from .prompt_defender_client import PromptDefenderClient
 
 
 def create_wall(

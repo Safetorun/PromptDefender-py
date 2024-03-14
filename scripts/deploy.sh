@@ -1,4 +1,4 @@
-python scripts/set_version.py
+# python scripts/set_version.py
 python3 -m pip install --upgrade twine build
 
 python3 -m build
