@@ -1,4 +1,5 @@
 # Prompt Defender
+![PyPI](https://img.shields.io/pypi/v/prompt-defender)
 
 Read the documentation at [Prompt Defender - Docs](https://promptshield.readme.io/docs)
 
