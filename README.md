@@ -106,7 +106,7 @@ functionalities:
 from drawbridge import build_drawbridge
 
 # Create a Drawbridge instance
-drawbridge = build_drawbridge(canary="test_canary")
+drawbridge = build_drawbridge(canary="test_canary", allow_unsafe_scripts=False)
 
 # Validate and clean a response
 response = "<script>alert('Hello!');</script>test_canary"
