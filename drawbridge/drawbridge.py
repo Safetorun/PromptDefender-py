@@ -20,3 +20,15 @@ class Drawbridge(BaseModel):
             response = bleach.clean(response, strip=True)
 
         return response_ok, response
+
+
+def build_drawbridge(canary: str, allow_unsafe_scripts: bool = False) -> Drawbridge:
+    """
+    Factory function to build a Drawbridge object
+
+    :param canary: what to look for in the response to validate if a canary was returned
+    :param allow_unsafe_scripts: whether or not to allow scripts in the response. If False, scripts will be removed
+
+    :return: Drawbridge object which you can call validate_response_and_clean oon to validate and clean the response
+    """
+    return Drawbridge(canary=canary, allow_unsafe_scripts=allow_unsafe_scripts)
