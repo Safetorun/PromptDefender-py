@@ -5,6 +5,26 @@ from typing import Optional, Dict
 import requests
 from pydantic import BaseModel
 
+import time
+from functools import wraps
+
+
+def retry(attempts=3, delay=1):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            for _ in range(attempts):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    print(f"Failed to execute {func.__name__}, retrying in {delay} seconds... {e}")
+                    time.sleep(delay)
+            raise Exception(f"Failed to execute {func.__name__} after {attempts} attempts")
+
+        return wrapper
+
+    return decorator
+
 
 class WallRequest(BaseModel):
     prompt: str
@@ -40,12 +60,13 @@ class PromptDefenderClient(BaseModel):
         self.headers = {"x-api-key": self.api_key, "Content-Type": "application/json",
                         "User-Agent": "PromptDefenderClient-v1.0"}
 
+    @retry(attempts=5, delay=2)
     def call_remote_wall(self, prompt: str) -> WallResponse:
 
         request = WallRequest(prompt=prompt, user_id=self.user_id, session_id=self.session_id, scan_pii=self.allow_pii)
         request = request.json(exclude_none=True)
         logging.info(f"Calling /wall endpoint with request: {request}")
-        response = requests.post(self.api_url, headers=self.headers, data=request)
+        response = requests.post(self.api_url, headers=self.headers, data=request, timeout=10)
         logging.info(f"Response from /wall endpoint: {response.status_code}, {response.text}")
 
         if response.status_code == 200:
