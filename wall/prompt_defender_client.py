@@ -1,6 +1,6 @@
 import logging
 import os
-from typing import Optional
+from typing import Optional, Dict
 
 import requests
 from pydantic import BaseModel
@@ -28,6 +28,7 @@ class PromptDefenderClient(BaseModel):
     allow_pii: Optional[bool] = None
     api_key: Optional[str] = None
     api_url: str = "https://prompt.safetorun.com/wall"
+    headers: Dict[str, str] = {}
 
     def __init__(self, /, **kwargs):
 
@@ -36,14 +37,15 @@ class PromptDefenderClient(BaseModel):
         if not self.api_key:
             raise ValueError("API key must be provided via environment variable or parameter "
                              "(Use PROMPT_DEFENDER_API_KEY for environment variable)")
+        self.headers = {"x-api-key": self.api_key, "Content-Type": "application/json",
+                        "User-Agent": "PromptDefenderClient-v1.0"}
 
     def call_remote_wall(self, prompt: str) -> WallResponse:
-        headers = {"x-api-key": self.api_key, "Content-Type": "application/json",
-                   "User-Agent": "PromptDefenderClient-v1.0"}
+
         request = WallRequest(prompt=prompt, user_id=self.user_id, session_id=self.session_id, scan_pii=self.allow_pii)
         request = request.json(exclude_none=True)
         logging.info(f"Calling /wall endpoint with request: {request}")
-        response = requests.post(self.api_url, headers=headers, data=request)
+        response = requests.post(self.api_url, headers=self.headers, data=request)
         logging.info(f"Response from /wall endpoint: {response.status_code}, {response.text}")
 
         if response.status_code == 200:

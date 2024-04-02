@@ -5,11 +5,11 @@ wall = create_wall(
     # These options first require you to have a Prompt Defender account which you can sign up for at
     # https://defender.safetorun.com. Once you have an account you can get an API key  to use with the wall.
     remote_jailbreak_check=True,
-    api_key="test_key",
+    api_key="your_api_key_here",  # Get this from https://defender.safetorun.com
+    rapid_api_key="your_api_key_here",  # Get this from https://rapidapi.com/promptdefender-promptdefender-default/api/prompt-defender
     user_id="test_user",
     session_id="test_session",
     allow_pii=False,
-
 
     # When you create a prompt, with Prompt Defender - Keep, you will get
     # an XML tag that wraps user input. Pass this tag to the remote endpoint
