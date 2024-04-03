@@ -66,7 +66,7 @@ class PromptDefenderClient(BaseModel):
         request = WallRequest(prompt=prompt, user_id=self.user_id, session_id=self.session_id, scan_pii=self.allow_pii)
         request = request.json(exclude_none=True)
         logging.info(f"Calling /wall endpoint with request: {request}")
-        response = requests.post(self.api_url, headers=self.headers, data=request, timeout=10)
+        response = requests.post(self.api_url, headers=self.headers, data=request, timeout=25)
         logging.info(f"Response from /wall endpoint: {response.status_code}, {response.text}")
 
         if response.status_code == 200:

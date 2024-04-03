@@ -32,3 +32,6 @@ try:
 except FileNotFoundError:
     print("File not found. Exiting.")
     os._exit(1)
+
+print("Version updated successfully.")
+print(open("pyproject.toml").read())
