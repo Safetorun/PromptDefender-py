@@ -1,29 +1,9 @@
 [project]
 name = "prompt-defender"
-version = "0.0.21"
+version = "0.0.22"
 authors = [
     { name = "Daniel Llewellyn", email = "admin@safetorun.com" },
 ]
-description = "Prompt Defender. A package to help you defend against prompt injection attacks."
-readme = "README.md"
-requires-python = ">=3.8"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-]
-
-[project.urls]
-Homepage = "https://github.com/safetorun/PromptDefender-py"
-Issues = "https://github.com/safetorun/PromptDefender-py/issues"
-
-[tool.hatch.build.targets.wheel]
-packages = ["wall", "drawbridge"]
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
 dependencies = [
     "annotated-types==0.6.0",
     "certifi==2024.2.2",
@@ -46,3 +26,23 @@ dependencies = [
     "urllib3==2.2.1",
     "bleach==6.1.0"
 ]
+description = "Prompt Defender. A package to help you defend against prompt injection attacks."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/safetorun/PromptDefender-py"
+Issues = "https://github.com/safetorun/PromptDefender-py/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["wall", "drawbridge"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
