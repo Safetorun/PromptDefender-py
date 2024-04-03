@@ -28,6 +28,7 @@ def replace_version(file_path, new_version):
 
 # Replace version in the files
 try:
+    print("Going to update version in pyproject.toml")
     replace_version('pyproject.toml', latest_tag)
 except FileNotFoundError:
     print("File not found. Exiting.")
