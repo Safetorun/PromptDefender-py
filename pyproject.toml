@@ -1,6 +1,6 @@
 [project]
 name = "prompt-defender"
-version = "0.0.12"
+version = "0.0.21"
 authors = [
     { name = "Daniel Llewellyn", email = "admin@safetorun.com" },
 ]
