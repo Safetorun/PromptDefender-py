@@ -32,4 +32,4 @@ class PromptDefenderClientRapidApi(PromptDefenderClient):
                         "x-rapidapi-host": "prompt-defender.p.rapidapi.com"
                         }
 
-        logging.info(f"Created rapid API client")
+        logging.info("Created rapid API client")
