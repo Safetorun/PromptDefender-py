@@ -10,8 +10,7 @@ Read the documentation at [Prompt Defender - Docs](https://promptshield.readme.i
 ## Quick start
 
 ```python
-from wall.wall_executor import should_block_prompt
-from wall.wall_builder import create_wall
+from wall.wall_executor import should_block_prompt, create_wall
 
 wall = create_wall(
     # These options first require you to have a Prompt Defender account which you can sign up for at
