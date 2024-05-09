@@ -12,11 +12,12 @@ def create_wall(
         allow_pii: Optional[bool] = None,
         xml_tag: Optional[str] = None,
         api_key: Optional[str] = None,
-        rapid_api_key: Optional[str] = None,
         user_id: Optional[str] = None,
         session_id: Optional[str] = None,
         max_prompt_length: Optional[int] = None,
         allowed_prompt_values: Optional[List[str]] = None,
+        check_badwords: Optional[bool] = None,
+        fast_check: Optional[bool] = None
 ) -> WallExecutor:
     """
     Create a wall with the given configuration
@@ -39,19 +40,14 @@ def create_wall(
         scanner = BasicXmlScanner(xml_tag=xml_tag)
 
     if remote_jailbreak_check:
-        if rapid_api_key is not None or rapid_api_check():
-            remote_wall_checker = PromptDefenderClientRapidApi(
-                scan_pii=allow_pii,
-                rapid_api_key=rapid_api_key,
-                api_key=api_key,
-                user_id=user_id,
-                session_id=session_id)
-        else:
-            remote_wall_checker = PromptDefenderClient(
-                scan_pii=allow_pii,
-                api_key=api_key,
-                user_id=user_id,
-                session_id=session_id)
+        remote_wall_checker = PromptDefenderClient(
+            scan_pii=allow_pii,
+            api_key=api_key,
+            user_id=user_id,
+            session_id=session_id,
+            check_badwords=check_badwords,
+            fast_check=fast_check
+        )
 
     if max_prompt_length is not None or allowed_prompt_values is not None:
         prompt_validator = PromptValidator(
