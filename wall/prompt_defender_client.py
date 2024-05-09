@@ -32,6 +32,8 @@ class WallRequest(BaseModel):
     session_id: Optional[str] = None
     scan_pii: Optional[bool] = None
     xml_tag: Optional[str] = None
+    check_badwords: Optional[bool] = None
+    fast_check: Optional[bool] = None
 
 
 class WallResponse(BaseModel):
@@ -48,6 +50,8 @@ class PromptDefenderClient(BaseModel):
     allow_pii: Optional[bool] = None
     api_key: Optional[str] = None
     api_url: str = "https://prompt.safetorun.com/wall"
+    check_badwords: Optional[bool] = None
+    fast_check: Optional[bool] = None
     headers: Dict[str, str] = {}
 
     def __init__(self, /, **kwargs):
@@ -63,7 +67,15 @@ class PromptDefenderClient(BaseModel):
     @retry(attempts=5, delay=2)
     def call_remote_wall(self, prompt: str) -> WallResponse:
 
-        request = WallRequest(prompt=prompt, user_id=self.user_id, session_id=self.session_id, scan_pii=self.allow_pii)
+        request = WallRequest(
+            prompt=prompt,
+            user_id=self.user_id,
+            session_id=self.session_id,
+            scan_pii=self.allow_pii,
+            check_badwords=self.check_badwords,
+            fast_check=self.fast_check
+        )
+        
         request = request.json(exclude_none=True)
         logging.info(f"Calling /wall endpoint with request: {request}")
         response = requests.post(self.api_url, headers=self.headers, data=request, timeout=25)
