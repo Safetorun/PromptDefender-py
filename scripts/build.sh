@@ -1,2 +1,2 @@
-python3 -m pip install --upgrade build
-cd prompt_defender && python3 -m build
+python3 -m pip install --upgrade build poetry || exit 1
+python3 -m build || exit 1

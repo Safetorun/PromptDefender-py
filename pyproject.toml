@@ -1,6 +1,6 @@
 [project]
 name = "prompt-defender"
-version = "0.0.29"
+version = "0.0.28-2-ga6afaad"
 authors = [
     { name = "Daniel Llewellyn", email = "admin@safetorun.com" },
 ]
@@ -24,9 +24,24 @@ classifiers = [
 Homepage = "https://github.com/safetorun/PromptDefender-py"
 Issues = "https://github.com/safetorun/PromptDefender-py/issues"
 
+
 [tool.hatch.build.targets.wheel]
 packages = ["prompt-defender"]
 
+[tool.poetry]
+name = "prompt-defender"
+version = "0.0.28-2-ga6afaad"
+description = "Prompt Defender. A package to help you defend against prompt injection attacks."
+authors = ["Daniel Llewellyn <admin@safetorun.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+bleach = "^6.1.0"
+requests = "^2.31.0"
+dataclasses-json = "^0.6.4"
+pydantic = "^2.6.3"
+
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
