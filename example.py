@@ -1,37 +1,23 @@
-from wall import should_block_prompt
-from wall import create_wall
+from core.wall_executor import CompositeWallExecutorBuilder
+from drawbridge import build_drawbridge
+from keep import remote_keep_builder
+from wall import build_xml_scanner, build_remote_wall_executor, build_prompt_validator
+from core import Defence
 
-wall = create_wall(
-    # These options first require you to have a Prompt Defender account which you can sign up for at
-    # https://defender.safetorun.com. Once you have an account you can get an API key  to use with the wall.
-    remote_jailbreak_check=True,
-    api_key="your_api_key_here",  # Get this from https://defender.safetorun.com
-    rapid_api_key="your_api_key_here",  # Get this from https://rapidapi.com/promptdefender-promptdefender-default/api/prompt-defender
-    user_id="test_user",
-    session_id="test_session",
-    allow_pii=False,
+if __name__ == "__main__":
+    compose_wall = CompositeWallExecutorBuilder()
+    compose_wall.add_wall_executor(build_xml_scanner)
+    compose_wall.add_wall_executor(build_remote_wall_executor(fast_check=True))
+    compose_wall.add_wall_executor(build_prompt_validator())
 
-    # When you create a prompt, with Prompt Defender - Keep, you will get
-    # an XML tag that wraps user input. Pass this tag to the remote endpoint
-    # in order to check for potential XML escaping which is likely because
-    # someone is trying to attack your system
-    xml_tag="tag",
+    defence = Defence(
+        wall=compose_wall.build(),
+        keep=remote_keep_builder(),
+        drawbridge=build_drawbridge(allow_unsafe_scripts=True)
+    )
 
-    # The following are used for prompt validation - if you are only
-    # expecting a certain number of values, or a certain length of prompt
-    # you can use these to enforce that.
+    prepared_prompt = defence.prepare_prompt("Your job is to answer user questions about cats {user_question}")
 
-    max_prompt_length=100,
-    allowed_prompt_values=["hello", "world"]
-)
+    print(defence.check_user_input("What is the best cat? " + prepared_prompt.safe_prompt))
 
-validation_response = wall.validate_prompt("hello")
-
-if validation_response.contains_pii:
-    print("Prompt contains PII")
-elif validation_response.suspicious_user:  # etc etc etc
-    print("Prompt is suspicious")
-elif should_block_prompt(validation_response):
-    print("Prompt should be blocked")
-else:
-    print("Prompt is OK")
+    print(defence.check_prompt_output("This should all be okay "))

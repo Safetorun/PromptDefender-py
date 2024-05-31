@@ -1,23 +1,31 @@
 import logging
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from core import ValidationResult, WallExecutor
 
 
-class BasicXmlScanner(BaseModel):
-    xml_tag: Optional[str] = None
+class BasicXmlScanner(WallExecutor):
     logger: logging.Logger = Field(default_factory=lambda: logging.getLogger(__name__))
 
     class Config:
         arbitrary_types_allowed = True
 
-    def check_for_xml_tag(self, prompt: str) -> bool:
-        self.logger.info(f"Scanning text for tag: {self.xml_tag} in input: {prompt}")
+    def validate_prompt(self, prompt: str,
+                        xml_tag: Optional[str] = None,
+                        user_id: Optional[str] = None,
+                        session_id: Optional[str] = None) -> ValidationResult:
+        self.logger.info(f"Scanning text for tag: {xml_tag} in input: {prompt}")
 
-        if not self.xml_tag:
-            return False
+        if not xml_tag:
+            return ValidationResult(unacceptable_prompt=False)
 
-        tag_to_scan_for = f"<{self.xml_tag}>"
-        other_tag_to_scan_for = f"</{self.xml_tag}>"
+        tag_to_scan_for = f"<{xml_tag}>"
+        other_tag_to_scan_for = f"</{xml_tag}>"
 
-        return tag_to_scan_for in prompt or other_tag_to_scan_for in prompt
+        return ValidationResult(unacceptable_prompt=tag_to_scan_for in prompt or other_tag_to_scan_for in prompt)
+
+
+def build_xml_scanner() -> BasicXmlScanner:
+    return BasicXmlScanner()

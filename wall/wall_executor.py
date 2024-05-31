@@ -1,29 +1,12 @@
 from typing import Optional
 
-from pydantic import BaseModel
-
+from core import ValidationResult, WallExecutor
 from .prompt_defender_client import PromptDefenderClient, WallResponse
 from .prompt_validator import PromptValidator
 from .xml_scanner import BasicXmlScanner
 
 
-class ValidationResult(BaseModel):
-    contains_pii: Optional[bool] = None
-    potential_jailbreak: bool
-    potential_xml_escaping: Optional[bool] = None
-    suspicious_user: Optional[bool] = None
-    suspicious_session: Optional[bool] = None
-
-
-def should_block_prompt(validation_result: ValidationResult) -> bool:
-    return validation_result.contains_pii or \
-        validation_result.potential_jailbreak or \
-        validation_result.potential_xml_escaping or \
-        validation_result.suspicious_user or \
-        validation_result.suspicious_session
-
-
-class WallExecutor(BaseModel):
+class WallExecutorRemote(WallExecutor):
     xml_scanner: Optional[BasicXmlScanner] = None
     prompt_validator: Optional[PromptValidator] = None
     remote_wall_checker: Optional[PromptDefenderClient] = None
@@ -36,7 +19,7 @@ class WallExecutor(BaseModel):
 
     def __execute_prompt_validator__(self, prompt: str) -> bool:
         if self.prompt_validator is not None:
-            return self.prompt_validator.validate_prompt(prompt)
+            return self.prompt_validator.validate_prompt(prompt).unacceptable_prompt
         else:
             return False
 
@@ -45,7 +28,10 @@ class WallExecutor(BaseModel):
             return self.remote_wall_checker.call_remote_wall(prompt)
         return None
 
-    def validate_prompt(self, prompt: str) -> ValidationResult:
+    def validate_prompt(self, prompt: str,
+                        xml_tag: Optional[str] = None,
+                        user_id: Optional[str] = None,
+                        session_id: Optional[str] = None) -> ValidationResult:
         """
         Validate a prompt
         :param prompt: The prompt to validate
