@@ -8,7 +8,7 @@ from pydantic import BaseModel
 import time
 from functools import wraps
 
-from core import WallExecutor, ValidationResult
+from ..core import WallExecutor, ValidationResult
 
 
 def retry(attempts=3, delay=1):

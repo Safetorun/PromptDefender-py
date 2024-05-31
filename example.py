@@ -1,8 +1,4 @@
-from core.wall_executor import CompositeWallExecutorBuilder
-from drawbridge import build_drawbridge
-from keep import remote_keep_builder
-from wall import build_xml_scanner, build_remote_wall_executor, build_prompt_validator
-from core import Defence
+from prompt_defender import CompositeWallExecutorBuilder, build_drawbridge, remote_keep_builder, build_xml_scanner, build_remote_wall_executor, build_prompt_validator, Defence
 
 if __name__ == "__main__":
     compose_wall = CompositeWallExecutorBuilder()

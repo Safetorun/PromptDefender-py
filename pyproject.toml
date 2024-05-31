@@ -1,6 +1,6 @@
 [project]
 name = "prompt-defender"
-version = "0.0.28"
+version = "0.0.29"
 authors = [
     { name = "Daniel Llewellyn", email = "admin@safetorun.com" },
 ]
@@ -25,9 +25,8 @@ Homepage = "https://github.com/safetorun/PromptDefender-py"
 Issues = "https://github.com/safetorun/PromptDefender-py/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["wall", "drawbridge"]
+packages = ["prompt-defender"]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-

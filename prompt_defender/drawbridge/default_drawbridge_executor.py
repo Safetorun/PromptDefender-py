@@ -2,7 +2,7 @@ from typing import Callable, Optional
 
 import bleach
 
-from core import DrawbridgeExecutor, DrawbridgeResponse
+from ..core import DrawbridgeExecutor, DrawbridgeResponse
 
 
 def __check_for_canary__(canary: str, llm_response: str) -> bool:

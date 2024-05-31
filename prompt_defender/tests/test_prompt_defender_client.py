@@ -2,7 +2,7 @@ import unittest
 
 import requests_mock
 
-from wall.prompt_defender_client import PromptDefenderClient, WallResponse
+from prompt_defender.wall.prompt_defender_client import PromptDefenderClient, WallResponse
 
 
 class TestPromptDefenderClient(unittest.TestCase):

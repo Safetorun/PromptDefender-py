@@ -1,4 +1,4 @@
-from core import KeepExecutor, SafePromptResponse
+from ..core import KeepExecutor, SafePromptResponse
 from typing import Optional, Dict, Callable
 from pydantic import BaseModel
 import os

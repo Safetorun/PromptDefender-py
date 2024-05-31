@@ -53,6 +53,7 @@ class Defence(BaseModel):
             str: a cleaned version of the instruction
         """
         if self.drawbridge:
-            return self.drawbridge(self.base_prompt.canary).validate_response_and_clean(instruction)
+            canary = self.base_prompt.canary if self.base_prompt else None
+            return self.drawbridge(canary).validate_response_and_clean(instruction)
 
         return DrawbridgeResponse(is_safe=True, cleaned_response=instruction)

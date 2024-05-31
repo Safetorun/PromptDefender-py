@@ -1,9 +1,7 @@
 import unittest
 
-from core import Defence, KeepExecutor
-from core.wall_executor import CompositeWallExecutorBuilder
-from drawbridge import build_drawbridge
-from wall import build_xml_scanner, build_prompt_validator
+from prompt_defender import Defence, KeepExecutor, CompositeWallExecutorBuilder, build_drawbridge, build_xml_scanner, \
+    build_prompt_validator
 
 
 class TestDefence(unittest.TestCase):
@@ -31,8 +29,6 @@ class TestDefence(unittest.TestCase):
         output = self.defence.check_prompt_output("This should all be okay ")
         self.assertTrue(output.is_safe)
         self.assertIsNotNone(output.cleaned_response)
-
-
 
 
 if __name__ == '__main__':

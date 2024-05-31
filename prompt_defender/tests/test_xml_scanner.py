@@ -1,5 +1,5 @@
 import unittest
-from wall.xml_scanner import BasicXmlScanner
+from prompt_defender.wall.xml_scanner import BasicXmlScanner
 
 XML_TAG = "tag"
 

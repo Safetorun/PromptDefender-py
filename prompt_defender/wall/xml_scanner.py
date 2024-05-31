@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import Field
 
-from core import ValidationResult, WallExecutor
+from ..core import ValidationResult, WallExecutor
 
 
 class BasicXmlScanner(WallExecutor):

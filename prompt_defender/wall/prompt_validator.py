@@ -1,6 +1,6 @@
 from typing import Optional, List, Callable
 
-from core import WallExecutor, ValidationResult
+from ..core import WallExecutor, ValidationResult
 
 
 class PromptValidator(WallExecutor):
