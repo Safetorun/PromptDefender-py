@@ -34,9 +34,14 @@ jobs:
       - name: Test with pytest
         run: |
           bash scripts/tests.sh
-      - name: Deploy
+      - name: Deploy Prompt defender
         env:
           PYPI_PASSWORD_TEST: ${{ secrets.PYPI_PASSWORD_TEST }}
         run: |
-          bash scripts/deploy.sh
-    
+          bash scripts/deploy.sh prompt_defender
+
+      - name: Deploy Prompt defender llm defences
+        env:
+          PYPI_PASSWORD_TEST: ${{ secrets.PYPI_PASSWORD_TEST }}
+        run: |
+          bash scripts/deploy.sh prompt_defender_llm_defences
