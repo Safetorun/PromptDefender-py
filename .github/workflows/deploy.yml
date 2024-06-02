@@ -38,4 +38,4 @@ jobs:
         env:
           PYPI_PASSWORD_TEST: ${{ secrets.PYPI_PASSWORD_TEST }}
         run: |
-          make deploy_test
+          make set_version deploy_test
