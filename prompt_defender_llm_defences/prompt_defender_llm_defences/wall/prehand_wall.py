@@ -1,4 +1,3 @@
-import random
 import string
 from typing import Optional
 
@@ -6,11 +5,12 @@ from prompt_defender.core import WallExecutor, ValidationResult
 from langchain.llms import BaseLLM
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+import secrets
 
 
 def generate_random_string(length):
     charset = string.ascii_letters + string.digits
-    return ''.join(random.choice(charset) for _ in range(length))
+    return ''.join(secrets.choice(charset) for _ in range(length))
 
 
 class ProactiveDefence(WallExecutor):

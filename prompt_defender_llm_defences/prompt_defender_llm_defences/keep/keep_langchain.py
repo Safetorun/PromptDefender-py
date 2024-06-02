@@ -4,8 +4,8 @@ from prompt_defender.core import KeepExecutor, SafePromptResponse
 from langchain.llms import BaseLLM
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-import random
 import string
+import secrets
 
 BASE_PROMPT = """
 You are a bot which is used to take a prompt, and return something which fulfills the same requirements
@@ -93,7 +93,7 @@ Command: {command}`
 
 def generate_random_string(length):
     charset = string.ascii_letters + string.digits
-    return ''.join(random.choice(charset) for _ in range(length))
+    return ''.join(secrets.choice(charset) for _ in range(length))
 
 
 class KeepExecutorLlm(KeepExecutor):
