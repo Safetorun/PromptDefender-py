@@ -9,3 +9,6 @@ deploy_prod: build
 deploy_test: build
 	bash scripts/deploy.sh prompt_defender test \
 	bash scripts/deploy.sh prompt_defender_llm_defences test
+
+test:
+	bash scripts/tests.sh

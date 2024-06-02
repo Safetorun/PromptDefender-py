@@ -30,15 +30,9 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
-          bash scripts/tests.sh
+          make test
       - name: Deploy Prompt defender
         env:
           PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
-          bash scripts/deploy.sh prompt_defender
-
-      - name: Deploy Prompt defender llm defences
-        env:
-          PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          bash scripts/deploy.sh prompt_defender_llm_defences
+          make deploy_prod
