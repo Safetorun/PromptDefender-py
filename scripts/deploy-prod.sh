@@ -1,5 +1,4 @@
-# Get the latest tag
-python scripts/set_version.py
+cd "$1"
 python3 -m pip install --upgrade twine build
 
 # Build
