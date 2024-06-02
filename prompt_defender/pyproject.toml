@@ -8,7 +8,7 @@ dependencies = [
     "dataclasses-json==0.6.4",
     "pydantic==2.6.3",
     "pydantic_core==2.16.3",
-    "requests==2.31.0",
+    "requests==2.32.0",
     "bleach==6.1.0"
 ]
 description = "Prompt Defender. A package to help you defend against prompt injection attacks."
