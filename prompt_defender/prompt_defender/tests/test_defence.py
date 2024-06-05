@@ -17,11 +17,13 @@ class TestDefence(unittest.TestCase):
         )
 
     def test_prepare_prompt(self):
-        prepared_prompt = self.defence.prepare_prompt("Your job is to answer user questions about cats {user_question}")
+        prepared_prompt = self.defence.prepare_prompt("Your job is to answer user questions about cats {user_question}",
+                                                      False)
         self.assertIsNotNone(prepared_prompt)
 
     def test_check_user_input(self):
-        prepared_prompt = self.defence.prepare_prompt("Your job is to answer user questions about cats {user_question}")
+        prepared_prompt = self.defence.prepare_prompt("Your job is to answer user questions about cats {user_question}",
+                                                      False)
         result = self.defence.check_user_input("What is the best cat? " + prepared_prompt.safe_prompt)
         self.assertIsNotNone(result)
 

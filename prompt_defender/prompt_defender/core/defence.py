@@ -14,13 +14,19 @@ class Defence(BaseModel):
 
     base_prompt: Optional[SafePromptResponse] = None
 
-    def prepare_prompt(self, prompt) -> SafePromptResponse:
+    def prepare_prompt(self, prompt, randomise_xml: bool) -> SafePromptResponse:
         """
-        :param prompt:
-        :return:
+
+        Prepare a prompt for defence, integrating a number of defence mechanisms against jailbreaks
+        and prompt injection attempts
+
+        :param prompt: The prompt to prepare
+        :param randomise_xml: Whether to randomise the XML tag
+
+        :return: A safe prompt response
         """
         if self.keep:
-            response = self.keep().generate_prompt(prompt)
+            response = self.keep().generate_prompt(prompt, randomise_xml)
         else:
             response = SafePromptResponse(safe_prompt=prompt)
 
