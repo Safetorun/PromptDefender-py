@@ -11,11 +11,12 @@ class SafePromptResponse(BaseModel):
 
 class KeepExecutor(BaseModel):
 
-    def generate_prompt(self, prompt: str) -> SafePromptResponse:
+    def generate_prompt(self, prompt: str, randomise_xml_tag: bool) -> SafePromptResponse:
         """
         Generate a prompt that is safe to use
 
         :param prompt: the base prompt that you want to shield
+        :param randomise_xml_tag: whether to randomise the xml tag
 
         :return: a safe prompt
         """

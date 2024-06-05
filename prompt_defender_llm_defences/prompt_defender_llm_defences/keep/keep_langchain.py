@@ -103,14 +103,17 @@ class KeepExecutorLlm(KeepExecutor):
         super().__init__()
         self.llm = data["llm"]
 
-    def generate_prompt(self, prompt: str) -> SafePromptResponse:
+    def generate_prompt(self, prompt: str, randomise_xml_tag: bool) -> SafePromptResponse:
         """
         Generate a prompt
         :param prompt: The prompt to generate
         :return: The generated prompt
         """
 
-        tag = generate_random_string(10)
+        if randomise_xml_tag:
+            tag = generate_random_string(10)
+        else:
+            tag = "user_input"
 
         llm_prompt = PromptTemplate.from_template(BASE_PROMPT)
         result = (llm_prompt | self.llm | StrOutputParser()).invoke(input={"command": prompt, "xmlTagName": tag})

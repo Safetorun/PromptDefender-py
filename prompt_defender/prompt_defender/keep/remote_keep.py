@@ -29,7 +29,7 @@ class RemoteKeepExecutor(KeepExecutor):
         self.headers = {"x-api-key": self.api_key, "Content-Type": "application/json",
                         "User-Agent": "PromptDefenderClient-v1.0"}
 
-    def generate_prompt(self, prompt: str) -> SafePromptResponse:
+    def generate_prompt(self, prompt: str, randomise_xml_tag: bool) -> SafePromptResponse:
         """
         Generate a prompt that is safe to use
 
@@ -39,7 +39,7 @@ class RemoteKeepExecutor(KeepExecutor):
         """
         request = KeepRequest(
             prompt=prompt,
-            randomise_xml_tag=True
+            randomise_xml_tag=randomise_xml_tag
         )
 
         request = request.json(exclude_none=True)
