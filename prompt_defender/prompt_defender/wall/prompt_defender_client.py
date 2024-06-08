@@ -125,7 +125,9 @@ class RemoteWallWrapper(WallExecutor):
                  response.suspicious_session
 
         return ValidationResult(
-            unacceptable_prompt=result)
+            unacceptable_prompt=result,
+            modified_prompt=prompt
+        )
 
 
 def build_remote_wall_executor(api_key: Optional[str] = None, allow_pii: Optional[bool] = None,

@@ -36,19 +36,25 @@ class Defence(BaseModel):
 
     def check_user_input(self, instruction: str,
                          user_id: Optional[str] = None,
-                         session_id: Optional[str] = None) -> bool:
+                         session_id: Optional[str] = None) -> (bool, str):
         """
         Defence for instruction prompt
 
         Returns:
             bool: if the instruction is safe to execute
         """
+        new_instruction = instruction
+
         if self.wall:
             for wall in self.wall:
-                if wall().validate_prompt(instruction, self.base_prompt.xml_tag, user_id,
-                                          session_id).unacceptable_prompt:
-                    return False
-        return True
+                wall_response = wall().validate_prompt(instruction, self.base_prompt.xml_tag, user_id,
+                                                       session_id)
+                if wall_response.unacceptable_prompt:
+                    return False, instruction
+                elif wall_response.modified_prompt != instruction:
+                    new_instruction = wall_response.modified_prompt
+
+        return True, new_instruction
 
     def check_prompt_output(self, instruction: str) -> DrawbridgeResponse:
         """

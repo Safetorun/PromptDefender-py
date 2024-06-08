@@ -1,5 +1,5 @@
 import unittest
-from prompt_defender.wall.prompt_validator import PromptValidator
+from ..wall.prompt_validator import PromptValidator
 
 
 class TestPromptValidator(unittest.TestCase):

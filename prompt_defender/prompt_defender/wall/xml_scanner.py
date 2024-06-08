@@ -19,12 +19,15 @@ class BasicXmlScanner(WallExecutor):
         self.logger.info(f"Scanning text for tag: {xml_tag} in input: {prompt}")
 
         if not xml_tag:
-            return ValidationResult(unacceptable_prompt=False)
+            return ValidationResult(unacceptable_prompt=False, modified_prompt=prompt)
 
         tag_to_scan_for = f"<{xml_tag}>"
         other_tag_to_scan_for = f"</{xml_tag}>"
 
-        return ValidationResult(unacceptable_prompt=tag_to_scan_for in prompt or other_tag_to_scan_for in prompt)
+        return ValidationResult(
+            unacceptable_prompt=tag_to_scan_for in prompt or other_tag_to_scan_for in prompt,
+            modified_prompt=prompt
+        )
 
 
 def build_xml_scanner() -> BasicXmlScanner:

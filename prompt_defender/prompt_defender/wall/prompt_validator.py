@@ -19,12 +19,12 @@ class PromptValidator(WallExecutor):
         :return:
         """
         if self.max_length is not None and len(prompt) > self.max_length:
-            return ValidationResult(unacceptable_prompt=True)
+            return ValidationResult(unacceptable_prompt=True, modified_prompt=prompt)
 
         if self.acceptable_values is not None and prompt not in self.acceptable_values:
-            return ValidationResult(unacceptable_prompt=True)
+            return ValidationResult(unacceptable_prompt=True, modified_prompt=prompt)
 
-        return ValidationResult(unacceptable_prompt=False)
+        return ValidationResult(unacceptable_prompt=False, modified_prompt=prompt)
 
 
 def build_prompt_validator(max_length: Optional[int] = None,
