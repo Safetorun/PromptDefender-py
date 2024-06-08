@@ -3,7 +3,7 @@ from typing import Optional
 from langchain.prompts import PromptTemplate
 from prompt_defender import Defence
 from langchain_core.output_parsers import StrOutputParser
-from langchain.llms import BaseLLM
+from langchain_core.language_models import BaseLLM
 
 
 class LlmBasedPrehand(Defence):

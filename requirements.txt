@@ -17,3 +17,5 @@ typing_extensions>=4.10.0
 urllib3>=2.2.1
 bleach>=6.1.0
 dataclasses-json>=0.6.4
+langchain
+langchain-openai

@@ -2,7 +2,7 @@ import string
 from typing import Optional
 
 from prompt_defender.core import WallExecutor, ValidationResult
-from langchain.llms import BaseLLM
+from langchain_core.language_models import BaseLLM
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 import secrets
