@@ -19,7 +19,7 @@ class WallExecutorRemote(WallExecutor):
 
     def __execute_prompt_validator__(self, prompt: str) -> bool:
         if self.prompt_validator is not None:
-            return self.prompt_validator.validate_prompt(prompt).unacceptable_prompt
+            return self.prompt_validator.is_user_input_safe(prompt).unacceptable_prompt
         else:
             return False
 
@@ -28,10 +28,10 @@ class WallExecutorRemote(WallExecutor):
             return self.remote_wall_checker.call_remote_wall(prompt)
         return None
 
-    def validate_prompt(self, prompt: str,
-                        xml_tag: Optional[str] = None,
-                        user_id: Optional[str] = None,
-                        session_id: Optional[str] = None) -> ValidationResult:
+    def is_user_input_safe(self, prompt: str,
+                           xml_tag: Optional[str] = None,
+                           user_id: Optional[str] = None,
+                           session_id: Optional[str] = None) -> ValidationResult:
         """
         Validate a prompt
         :param prompt: The prompt to validate

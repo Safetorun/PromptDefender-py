@@ -34,7 +34,7 @@ class Defence(BaseModel):
 
         return response
 
-    def check_user_input(self, instruction: str,
+    def is_user_input_safe(self, instruction: str,
                          user_id: Optional[str] = None,
                          session_id: Optional[str] = None) -> (bool, str):
         """
@@ -47,7 +47,7 @@ class Defence(BaseModel):
 
         if self.wall:
             for wall in self.wall:
-                wall_response = wall().validate_prompt(instruction, self.base_prompt.xml_tag, user_id,
+                wall_response = wall().is_user_input_safe(instruction, self.base_prompt.xml_tag, user_id,
                                                        session_id)
                 if wall_response.unacceptable_prompt:
                     return False, instruction

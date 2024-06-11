@@ -103,10 +103,10 @@ class RemoteWallWrapper(WallExecutor):
             raise ValueError("API key must be provided via environment variable or parameter "
                              "(Use PROMPT_DEFENDER_API_KEY for environment variable)")
 
-    def validate_prompt(self, prompt: str,
-                        xml_tag: Optional[str] = None,
-                        user_id: Optional[str] = None,
-                        session_id: Optional[str] = None) -> ValidationResult:
+    def is_user_input_safe(self, prompt: str,
+                           xml_tag: Optional[str] = None,
+                           user_id: Optional[str] = None,
+                           session_id: Optional[str] = None) -> ValidationResult:
         client = PromptDefenderClient(api_key=self.api_key,
                                       allow_pii=self.allow_pii,
                                       check_badwords=self.check_badwords,

@@ -15,9 +15,9 @@ class LlmBasedPrehand(Defence):
         self.llm = data["llm"]
         self.parser = data["parser"] or StrOutputParser()
 
-    def check_user_input(self, instruction: str,
-                         user_id: Optional[str] = None,
-                         session_id: Optional[str] = None) -> (bool, str):
+    def is_user_input_safe(self, instruction: str,
+                           user_id: Optional[str] = None,
+                           session_id: Optional[str] = None) -> (bool, str):
         """
         Defence for instruction prompt
 

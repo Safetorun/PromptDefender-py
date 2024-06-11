@@ -38,19 +38,19 @@ from prompt_defender import Defence, build_drawbridge, build_xml_scanner, build_
 
 # Configure the defence mechanisms
 defence = Defence(
-    wall=[
-        build_xml_scanner(),
-        build_prompt_validator(max_length=100)
-    ],
-    keep=None,
-    drawbridge=build_drawbridge(allow_unsafe_scripts=False)
+  wall=[
+    build_xml_scanner(),
+    build_prompt_validator(max_length=100)
+  ],
+  keep=None,
+  drawbridge=build_drawbridge(allow_unsafe_scripts=False)
 )
 
 # Prepare a prompt
 safe_prompt_response = defence.prepare_prompt("Your job is to answer user questions about cats {user_question}", False)
 
 # Check user input
-is_safe, cleaned_instruction = defence.check_user_input("What is the best cat? " + safe_prompt_response.safe_prompt)
+is_safe, cleaned_instruction = defence.is_user_input_safe("What is the best cat? " + safe_prompt_response.safe_prompt)
 
 # Check prompt output
 output_response = defence.check_prompt_output("The best cat is a Maine Coon.")

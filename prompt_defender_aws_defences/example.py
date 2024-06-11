@@ -7,7 +7,7 @@ pii_detector = AwsPIIScannerWallExecutor()
 
 # Use the PiiDetection class to check if a string contains PII
 text = "My name is John Doe and my email is john.doe@example.com"
-contains_pii = pii_detector.validate_prompt(text).unacceptable_prompt
+contains_pii = pii_detector.is_user_input_safe(text).unacceptable_prompt
 
 if contains_pii:
     print("The text contains PII.")

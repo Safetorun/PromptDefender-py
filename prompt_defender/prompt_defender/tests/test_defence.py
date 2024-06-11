@@ -24,7 +24,7 @@ class TestDefence(unittest.TestCase):
     def test_check_user_input(self):
         prepared_prompt = self.defence.prepare_prompt("Your job is to answer user questions about cats {user_question}",
                                                       False)
-        result = self.defence.check_user_input("What is the best cat? " + prepared_prompt.safe_prompt)
+        result = self.defence.is_user_input_safe("What is the best cat? " + prepared_prompt.safe_prompt)
         self.assertIsNotNone(result)
 
     def test_check_prompt_output(self):

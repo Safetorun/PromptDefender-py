@@ -1,5 +1,6 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
+
 from ..wall.llm_prehand_defence import LlmBasedPrehand
 
 
@@ -13,7 +14,7 @@ class TestLlmBasedPrehand(unittest.TestCase):
 
     def test_check_user_input(self):
         instruction = "Tell me a joke."
-        result = self.defence.check_user_input(instruction)
+        result = self.defence.is_user_input_safe(instruction)
         self.assertEqual(result, (True, instruction))
 
 

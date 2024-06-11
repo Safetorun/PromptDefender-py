@@ -12,10 +12,10 @@ class BasicXmlScanner(WallExecutor):
     class Config:
         arbitrary_types_allowed = True
 
-    def validate_prompt(self, prompt: str,
-                        xml_tag: Optional[str] = None,
-                        user_id: Optional[str] = None,
-                        session_id: Optional[str] = None) -> ValidationResult:
+    def is_user_input_safe(self, prompt: str,
+                           xml_tag: Optional[str] = None,
+                           user_id: Optional[str] = None,
+                           session_id: Optional[str] = None) -> ValidationResult:
         self.logger.info(f"Scanning text for tag: {xml_tag} in input: {prompt}")
 
         if not xml_tag:

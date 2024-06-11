@@ -7,10 +7,10 @@ class PromptValidator(WallExecutor):
     max_length: Optional[int] = None
     acceptable_values: Optional[List[str]] = None
 
-    def validate_prompt(self, prompt: str,
-                        xml_tag: Optional[str] = None,
-                        user_id: Optional[str] = None,
-                        session_id: Optional[str] = None) -> ValidationResult:
+    def is_user_input_safe(self, prompt: str,
+                           xml_tag: Optional[str] = None,
+                           user_id: Optional[str] = None,
+                           session_id: Optional[str] = None) -> ValidationResult:
         """
         Validate a prompt
 

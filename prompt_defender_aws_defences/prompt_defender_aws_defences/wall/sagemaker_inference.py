@@ -58,7 +58,7 @@ class SagemakerWallExecutor(WallExecutor):
         super().__init__()
         self.sagemaker = RemoteSagemakerCaller(endpoint_url=sagemaker_name)
 
-    def validate_prompt(self, prompt: str,
+    def is_user_input_safe(self, prompt: str,
                         xml_tag: Optional[str] = None,
                         user_id: Optional[str] = None,
                         session_id: Optional[str] = None) -> ValidationResult:
