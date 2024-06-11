@@ -8,10 +8,12 @@ from langchain_core.language_models import BaseLLM
 
 class LlmBasedPrehand(Defence):
     llm: Optional[BaseLLM] = None
+    parser: Optional[StrOutputParser] = None
 
     def __init__(self, /, **data):
         super().__init__()
         self.llm = data["llm"]
+        self.parser = data["parser"] or StrOutputParser()
 
     def check_user_input(self, instruction: str,
                          user_id: Optional[str] = None,
@@ -48,7 +50,7 @@ class LlmBasedPrehand(Defence):
         """
 
         prompt = PromptTemplate.from_template(prompt_for_extra_query)
-        chain = prompt | self.llm | StrOutputParser()
+        chain = prompt | self.llm | self.parser
         extra_response = chain.invoke(input={"query": instruction})
 
         print(f"Query: {extra_response}")
