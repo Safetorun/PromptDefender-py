@@ -24,7 +24,7 @@ Homepage = "https://github.com/safetorun/PromptDefender-py"
 Issues = "https://github.com/safetorun/PromptDefender-py/issues"
 
 [tool.poetry]
-name = "prompt-defender-aws-defences
+name = "prompt-defender-aws-defences"
 version = "0.1.1"
 description = "Prompt Defender. A package to help you defend against prompt injection attacks."
 authors = ["Daniel Llewellyn <admin@safetorun.com>"]
