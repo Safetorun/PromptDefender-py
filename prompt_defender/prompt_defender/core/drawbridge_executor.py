@@ -2,8 +2,8 @@ from pydantic import BaseModel
 
 
 class DrawbridgeResponse(BaseModel):
-    is_safe: bool
-    cleaned_response: str
+    is_safe: bool = False
+    cleaned_response: str = ""
 
 
 class DrawbridgeExecutor(BaseModel):
@@ -12,4 +12,4 @@ class DrawbridgeExecutor(BaseModel):
     """
 
     def validate_response_and_clean(self, response: str) -> DrawbridgeResponse:
-        return DrawbridgeResponse(is_safe=True, cleaned_resppnse=response)
+        return DrawbridgeResponse(is_safe=True, cleaned_response=response)
