@@ -13,19 +13,15 @@ class RemoteSagemakerCaller(BaseModel):
     endpoint_url: str
 
     def query(self, payload: str):
-        try:
-            session = boto3.Session(region_name='eu-west-1')
-            sm = session.client('sagemaker-runtime')
-            input_bytes = json.dumps(payload).encode('utf-8')
-            response = sm.invoke_endpoint(
-                EndpointName=self.endpoint_url,
-                ContentType='application/json',
-                Body=input_bytes
-            )
-            response_body = json.loads(response['Body'].read().decode())
-        except (BotoCoreError, ClientError) as e:
-            self.logger.error(f"Failed to call SageMaker endpoint: {e}")
-            raise e
+        session = boto3.Session(region_name='eu-west-1')
+        sm = session.client('sagemaker-runtime')
+        input_bytes = json.dumps(payload).encode('utf-8')
+        response = sm.invoke_endpoint(
+            EndpointName=self.endpoint_url,
+            ContentType='application/json',
+            Body=input_bytes
+        )
+        response_body = json.loads(response['Body'].read().decode())
 
         for re in response_body:
             if re['label'] == 'INJECTION':
@@ -35,7 +31,6 @@ class RemoteSagemakerCaller(BaseModel):
                 return score
 
         error_message = f"Could not find the label in the response. Response: {response_body}"
-        self.logger.error(error_message)
         raise ValueError(error_message)
 
     def call_remote_api(self, prompt) -> MatchLevel:
