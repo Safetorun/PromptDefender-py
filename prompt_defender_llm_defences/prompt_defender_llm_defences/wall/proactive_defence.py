@@ -21,8 +21,8 @@ class ProactiveDefence(WallExecutor):
     def __init__(self, /, **data):
         super().__init__()
         self.llm = data["llm"]
-        self.parser = data["parser"] or StrOutputParser()
-        self.generate_random_string = data["generate_random_string"] or generate_random_string
+        self.parser = data.get("parser", StrOutputParser())
+        self.generate_random_string = data.get("generate_random_string", generate_random_string)
 
     def is_user_input_safe(self, prompt: str,
                            xml_tag: Optional[str] = None,

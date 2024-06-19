@@ -17,7 +17,7 @@ class ParaphrasingDefence(Defence):
     def __init__(self, /, **data):
         super().__init__()
         self.llm = data["llm"]
-        self.parser = data["parser"] or StrOutputParser()
+        self.parser = data.get("parser", StrOutputParser())
 
     def is_user_input_safe(self, instruction: str,
                            user_id: Optional[str] = None,
