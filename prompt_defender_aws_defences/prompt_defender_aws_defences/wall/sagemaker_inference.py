@@ -2,7 +2,6 @@ import json
 from typing import Optional
 
 import boto3
-from botocore.exceptions import BotoCoreError, ClientError
 from prompt_defender.core import WallExecutor, ValidationResult
 from pydantic import BaseModel
 
