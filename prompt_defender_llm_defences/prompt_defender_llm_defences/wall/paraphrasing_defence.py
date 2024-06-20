@@ -1,12 +1,12 @@
 from typing import Optional
 
-from prompt_defender import Defence
+from prompt_defender.core import WallExecutor, ValidationResult
 from langchain_core.language_models import BaseLLM
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 
-class ParaphrasingDefence(Defence):
+class ParaphrasingDefence(WallExecutor):
     """
     Paraphrasing Defence which attempts to paraphrase a prompt to detect prompt injection.
     """
@@ -19,9 +19,10 @@ class ParaphrasingDefence(Defence):
         self.llm = data["llm"]
         self.parser = data.get("parser", StrOutputParser())
 
-    def is_user_input_safe(self, instruction: str,
+    def is_user_input_safe(self, prompt: str,
+                           xml_tag: Optional[str] = None,
                            user_id: Optional[str] = None,
-                           session_id: Optional[str] = None) -> (bool, str):
+                           session_id: Optional[str] = None) -> ValidationResult:
         """
         Defence for instruction prompt
 
@@ -31,4 +32,7 @@ class ParaphrasingDefence(Defence):
         prompt = PromptTemplate.from_template('Paraphrase the following text.\nText: {instruction}')
         chain = prompt | self.llm | self.parser
 
-        return False, chain.invoke(input={"instruction": instruction})
+        return ValidationResult(
+            unacceptable_prompt=False,
+            modified_prompt=chain.invoke(input={"instruction": instruction})
+        )

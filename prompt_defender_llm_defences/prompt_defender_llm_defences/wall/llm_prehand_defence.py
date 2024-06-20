@@ -1,12 +1,12 @@
 from typing import Optional
 
 from langchain.prompts import PromptTemplate
-from prompt_defender import Defence
+from prompt_defender.core import WallExecutor, ValidationResult
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.language_models import BaseLLM
 
 
-class LlmBasedPrehand(Defence):
+class LlmBasedPrehand(WallExecutor):
     llm: Optional[BaseLLM] = None
     parser: Optional[StrOutputParser] = None
 
@@ -15,9 +15,10 @@ class LlmBasedPrehand(Defence):
         self.llm = data["llm"]
         self.parser = data.get("parser", StrOutputParser())
 
-    def is_user_input_safe(self, instruction: str,
+    def is_user_input_safe(self, prompt: str,
+                           xml_tag: Optional[str] = None,
                            user_id: Optional[str] = None,
-                           session_id: Optional[str] = None) -> (bool, str):
+                           session_id: Optional[str] = None) -> ValidationResult:
         """
         Defence for instruction prompt
 
@@ -51,10 +52,10 @@ class LlmBasedPrehand(Defence):
 
         prompt = PromptTemplate.from_template(prompt_for_extra_query)
         chain = prompt | self.llm | self.parser
-        extra_response = chain.invoke(input={"query": instruction})
+        extra_response = chain.invoke(input={"query": prompt})
 
         print(f"Query: {extra_response}")
         if 'yes' in extra_response.lower():
-            return True, instruction  # Safe prompt
+            return ValidationResult(unacceptable_prompt=True, modified_prompt=prompt)  # Safe prompt
         else:
-            return False, instruction
+            return ValidationResult(unacceptable_prompt=False, modified_prompt=prompt)
