@@ -5,14 +5,15 @@ from pydantic import BaseModel
 
 class ValidationResult(BaseModel):
     unacceptable_prompt: bool = False
+    modified_prompt: str
 
 
 class WallExecutor(BaseModel):
-    def validate_prompt(self, prompt: str,
+    def is_user_input_safe(self, prompt: str,
                         xml_tag: Optional[str] = None,
                         user_id: Optional[str] = None,
                         session_id: Optional[str] = None) -> ValidationResult:
-        return ValidationResult(potential_jailbreak=False)
+        return ValidationResult(potential_jailbreak=False, modified_prompt=prompt)
 
 
 class CompositeWallExecutorBuilder(BaseModel):

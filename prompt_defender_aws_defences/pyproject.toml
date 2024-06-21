@@ -1,0 +1,40 @@
+[project]
+name = "prompt-defender-aws-defences"
+version = "0.1.1"
+authors = [
+    { name = "Daniel Llewellyn", email = "admin@safetorun.com" },
+]
+dependencies = [
+    "pydantic>=2.6.3",
+    "pydantic_core>=2.16.3",
+    "boto3>=1.34.0"
+]
+description = "Prompt Defender. A package to help you defend against prompt injection attacks."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/safetorun/PromptDefender-py"
+Issues = "https://github.com/safetorun/PromptDefender-py/issues"
+
+[tool.poetry]
+name = "prompt-defender-aws-defences"
+version = "0.1.1"
+description = "Prompt Defender. A package to help you defend against prompt injection attacks."
+authors = ["Daniel Llewellyn <admin@safetorun.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pydantic = "^2.6.3"
+pydantic_core = "^2.16.3"
+boto3 = "^1.34.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

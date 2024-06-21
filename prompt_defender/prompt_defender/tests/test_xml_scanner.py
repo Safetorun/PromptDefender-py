@@ -10,10 +10,10 @@ class TestBasicXmlScanner(unittest.TestCase):
 
     def test_check_for_xml_tag(self):
         text_to_scan = "<tag>Some content</tag>"
-        self.assertTrue(self.scanner.validate_prompt(text_to_scan, XML_TAG).unacceptable_prompt)
+        self.assertTrue(self.scanner.is_user_input_safe(text_to_scan, XML_TAG).unacceptable_prompt)
 
         text_to_scan = "No tags here"
-        self.assertFalse(self.scanner.validate_prompt(text_to_scan, XML_TAG).unacceptable_prompt)
+        self.assertFalse(self.scanner.is_user_input_safe(text_to_scan, XML_TAG).unacceptable_prompt)
 
 
 if __name__ == '__main__':

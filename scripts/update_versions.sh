@@ -1,2 +1,3 @@
 python scripts/set_version.py prompt_defender
 python scripts/set_version.py prompt_defender_llm_defences
+python scripts/set_version.py prompt_defender_aws_defences
