@@ -34,5 +34,5 @@ class ParaphrasingDefence(WallExecutor):
 
         return ValidationResult(
             unacceptable_prompt=False,
-            modified_prompt=chain.invoke(input={"instruction": instruction})
+            modified_prompt=chain.invoke(input={"instruction": prompt})
         )
