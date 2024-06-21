@@ -10,7 +10,8 @@ class TestProactiveDefence(unittest.TestCase):
         self.parser = Mock()
         self.generate_random_string = Mock()
 
-        self.defence = ProactiveDefence(llm=self.llm_mock, parser=self.parser,
+        self.defence = ProactiveDefence(llm=self.llm_mock,
+                                        parser=self.parser,
                                         generate_random_string=self.generate_random_string)
 
     def test_is_user_input_safe(self):

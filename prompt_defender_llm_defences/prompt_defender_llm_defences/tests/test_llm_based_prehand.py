@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 
 from ..wall.llm_prehand_defence import LlmBasedPrehand
+from prompt_defender.core import ValidationResult
 
 
 class TestLlmBasedPrehand(unittest.TestCase):
@@ -15,7 +16,7 @@ class TestLlmBasedPrehand(unittest.TestCase):
     def test_check_user_input(self):
         instruction = "Tell me a joke."
         result = self.defence.is_user_input_safe(instruction)
-        self.assertEqual(result, (True, instruction))
+        self.assertEqual(result, ValidationResult(unacceptable_prompt=True, modified_prompt=instruction))
 
 
 if __name__ == '__main__':

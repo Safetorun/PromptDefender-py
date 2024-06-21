@@ -50,9 +50,9 @@ class LlmBasedPrehand(WallExecutor):
             Return only "yes" or "no"
         """
 
-        prompt = PromptTemplate.from_template(prompt_for_extra_query)
-        chain = prompt | self.llm | self.parser
-        extra_response = chain.invoke(input={"query": prompt})
+        prompt_response = PromptTemplate.from_template(prompt_for_extra_query)
+        chain = prompt_response | self.llm | self.parser
+        extra_response = chain.invoke(input={"query": prompt_response})
 
         print(f"Query: {extra_response}")
         if 'yes' in extra_response.lower():
