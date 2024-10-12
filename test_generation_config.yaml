@@ -1,8 +1,0 @@
-ignore:
-  - auto_readme.py
-  - auto_test_generation.py
-  - __init__.py
-  - example.py
-  - scripts/**
-
-extra_instruction:
