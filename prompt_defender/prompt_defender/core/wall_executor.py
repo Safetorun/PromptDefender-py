@@ -13,7 +13,7 @@ class WallExecutor(BaseModel):
                         xml_tag: Optional[str] = None,
                         user_id: Optional[str] = None,
                         session_id: Optional[str] = None) -> ValidationResult:
-        return ValidationResult(potential_jailbreak=False, modified_prompt=prompt)
+        return ValidationResult(unacceptable_prompt=False, modified_prompt=prompt)
 
 
 class CompositeWallExecutorBuilder(BaseModel):

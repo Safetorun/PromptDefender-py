@@ -95,6 +95,7 @@ class RemoteWallWrapper(WallExecutor):
     allow_pii: Optional[bool] = None
     check_badwords: Optional[bool] = None
     fast_check: Optional[bool] = None
+    url: str = "https://prompt.safetorun.com/wall"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -107,12 +108,15 @@ class RemoteWallWrapper(WallExecutor):
                            xml_tag: Optional[str] = None,
                            user_id: Optional[str] = None,
                            session_id: Optional[str] = None) -> ValidationResult:
-        client = PromptDefenderClient(api_key=self.api_key,
-                                      allow_pii=self.allow_pii,
-                                      check_badwords=self.check_badwords,
-                                      fast_check=self.fast_check,
-                                      user_id=user_id,
-                                      session_id=session_id)
+        client = PromptDefenderClient(
+            api_url=self.url,
+            api_key=self.api_key,
+            allow_pii=self.allow_pii,
+            check_badwords=self.check_badwords,
+            fast_check=self.fast_check,
+            user_id=user_id,
+            session_id=session_id
+        )
         response = client.call_remote_wall(prompt)
 
         response.potential_xml_escaping = response.potential_xml_escaping or False
